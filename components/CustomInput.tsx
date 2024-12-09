@@ -8,6 +8,7 @@ interface CustomInputProps<T extends FieldValues>{
     form: UseFormReturn<T>;
     name: Path<T>;
     label: string;
+    type: string;
     placeholder?: string;
 }
 
@@ -15,6 +16,7 @@ const CustomInput = <T extends FieldValues>({
     form,
     name,
     label,
+    type,
     placeholder,
 }: CustomInputProps<T>) => {
     return (
@@ -30,6 +32,7 @@ const CustomInput = <T extends FieldValues>({
                                 <Input
                                     placeholder={placeholder}
                                     className="input-class"
+                                    type={type}
                                     {...field}
                                 />
                             </FormControl>

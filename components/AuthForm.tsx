@@ -82,63 +82,19 @@ const AuthForm = ({ type }: { type: string }) => {
                     <>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                {/* <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem className='form-item'>
-                                            <FormLabel className='form-label'>Email</FormLabel>
-                                            <div className="flex w-full flex-col">
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Enter your email"
-                                                        className='input-class'
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormDescription>
-                                                </FormDescription>
-                                                <FormMessage className='form-message mt-2' />
-                                            </div>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="password"
-                                    render={({ field }) => (
-                                        <FormItem className='form-item'>
-                                            <FormLabel className='form-label'>Password</FormLabel>
-                                            <div className="flex w-full flex-col">
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Enter your password"
-                                                        className='input-class'
-                                                        type='password'
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormDescription>
-                                                </FormDescription>
-                                                <FormMessage className='form-message mt-2' />
-                                            </div>
-                                        </FormItem>
-                                    )}
-                                /> */}
-
                                 <CustomInput
                                     form={form}
                                     name="email"
                                     placeholder="Enter your email"
                                     label="Email"
+                                    type="text"
                                 />
-
                                 <CustomInput
                                     form={form}
                                     name="password"
                                     placeholder="Enter your password"
                                     label="Password"
+                                    type='password'
                                 />
                                 <Button type="submit">Submit</Button>
                             </form>
