@@ -8,7 +8,22 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
 
-    const loggedIn = { firstName: 'You', lastName: 'On' };
+    const loggedIn: User = {
+        firstName: 'You',
+        lastName: 'On',
+        $id: "",
+        email: "",
+        userId: "",
+        dwollaCustomerUrl: "",
+        dwollaCustomerId: "",
+        name: "",
+        address1: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        dateOfBirth: "",
+        ssn: ""
+    };
 
     return (
         <>
@@ -18,7 +33,7 @@ export default function RootLayout({
                     <div className="root-layout">
                         <Image
                             src="/icons/logo.svg"
-                            alt="Logo"
+                            alt="Menu icon"
                             width={30}
                             height={30}
                         />
