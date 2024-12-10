@@ -1,26 +1,12 @@
 import HeaderBox from '@/components/HeaderBox'
 import RightSideBar from '@/components/RightSideBar'
 import TotalBalanceBox from '@/components/TotalBalanceBox'
+import { getLoggedInUser } from '@/lib/actions/user.actions'
 import React from 'react'
 
-const Home = () => {
+const Home = async () => {
 
-  const loggedIn : User = {
-    firstName: 'You', 
-    lastName: 'Tube', 
-    email: 'youtube@gmail.com',
-    $id: '',
-    userId: '',
-    dwollaCustomerUrl: '',
-    dwollaCustomerId: '',
-    name: '',
-    address1: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    dateOfBirth: '',
-    ssn: ''
-  }
+  const loggedIn = await getLoggedInUser();
 
   const mockBanks: (Bank & Account)[] = [
     {
@@ -71,7 +57,7 @@ const Home = () => {
             <HeaderBox
               type="greeting"
               title="Welcome"
-              user={loggedIn?.firstName || 'Guest'}
+              user={loggedIn?.name || 'Guest'}
               subtext="Just a subtext"
             />
 

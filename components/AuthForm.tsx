@@ -12,11 +12,13 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomInput from './CustomInput'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { signIn, signUp } from '@/lib/actions/user.actions'
 
 const buildFormSchema = (type: string) => {
     const formSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(5, {
+        password: z.string().min(8, {
             message: "Password must be at least 5 characters.",
         }),
         firstName: type === 'sign-in' ? z.string().optional()
@@ -25,6 +27,8 @@ const buildFormSchema = (type: string) => {
             : z.string().min(1, { message: "Last name is required." }),
         address: type === 'sign-in' ? z.string().optional()
             : z.string().min(1, { message: "Address is required." }),
+        city: type === 'sign-in' ? z.string().optional()
+            : z.string().min(1, { message: "City is required." }),
         state: type === 'sign-in' ? z.string().optional()
             : z.string().min(1, { message: "State is required." }),
         postalCode: type === 'sign-in' ? z.string().optional()
@@ -44,6 +48,7 @@ const buildFormSchema = (type: string) => {
 
 const AuthForm = ({ type }: { type: string }) => {
 
+    const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -57,19 +62,36 @@ const AuthForm = ({ type }: { type: string }) => {
             firstName: '',
             lastName: '',
             address: '',
+            city: '',
             state: '',
             postalCode: '',
             dateOfBirth: '',
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true);
 
-        setTimeout(() => {
-            console.log(values);
+        try {
+            if (type === 'sign-up') {
+                const newUser = await signUp(data);
+                setUser(newUser);
+            }
+
+            if (type === 'sign-in') {
+                const response = await signIn({
+                    email: data.email,
+                    password: data.password,
+                })
+
+                if(response) router.push('/')
+            }
+            
+        } catch (error) {
+            console.log(error);
+        } finally {
             setIsLoading(false);
-        }, 2000);
+        }
     }
 
     return (
@@ -133,6 +155,13 @@ const AuthForm = ({ type }: { type: string }) => {
                                             name="address"
                                             placeholder="Enter your address"
                                             label="Address"
+                                            type="text"
+                                        />
+                                        <CustomInput
+                                            form={form}
+                                            name="city"
+                                            placeholder="Enter your city"
+                                            label="City"
                                             type="text"
                                         />
                                         <div className='flex gap-4'>
